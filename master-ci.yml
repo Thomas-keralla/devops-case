@@ -5,8 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  test:
-    name: GradleTest
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +15,7 @@ jobs:
       - name: Setup JDK 1.11
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
+          java-version: 11
           distribution: 'adopt'
 
       - name: Grant Permissions to gradlew
@@ -24,16 +23,9 @@ jobs:
       - name: Test
         run: ./gradlew test --tests "*"
 
-      - name: Test Success
-        if: success()
-        with:
-          script: |
-            echo -e "\n### Hurray passed the basic Gradle test ###\n"
-      - name: Test Failed
-        if: success()
-        with:
-          script: |
-            echo -e "\n### Dohhh! Did not pass the basic Gradle test ###\n"
+      - name: Build
+        run: ./gradlew build
+      
 
 
 
