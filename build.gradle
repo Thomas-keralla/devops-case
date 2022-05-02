@@ -1,0 +1,43 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.altapay'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+ext['log4j2.version'] = '2.15.0'
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.5.8'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	constraints {
+		implementation('org.apache.logging.log4j:log4j-bom:2.15.0') {
+			because 'transitive dependency version 2.13.3 is vulnerable to the log4shell exploit'
+		}
+		implementation('org.apache.logging.log4j:log4j-to-slf4j:2.15.0') {
+			because 'transitive dependency version 2.13.3 is vulnerable to the log4shell exploit'
+		}
+		implementation('org.apache.logging.log4j:log4j-api:2.15.0') {
+			because 'transitive dependency version 2.13.3 is vulnerable to the log4shell exploit'
+		}
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
